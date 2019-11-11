@@ -1,0 +1,40 @@
+{include file="public/header" /}
+
+<div class="page">
+    <form id="user_form" enctype="multipart/form-data" method="post">
+        <input type="hidden" name="member_id" value="{$member_array.member_id}" />
+        <input type="hidden" name="old_member_avatar" value="{$member_array.member_avatar}" />
+        <input type="hidden" name="member_name" value="{$member_array.member_name}" />
+        <table class="ds-default-table">
+            <tbody>
+                <tr class="noborder">
+                    <input type="hidden" id="type" name="type" valeue="{$type}"  class="txt">
+                    <td class="required w120"><label>增加会员时间（天）:</label></td>
+                    <td class="vatop rowform"><input type="text" id="times" name="times" class="txt"></td>
+
+                </tr>
+
+
+
+
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="15"><a href="JavaScript:void(0);" class="btn" id="submitBtn"><span>{$Think.lang.ds_submit}</span></a></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+
+    <script type="text/javascript" src="{$Think.PLUGINS_SITE_ROOT}/mlselection.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function() {
+            $("#region").ds_region();
+            $("#submitBtn").click(function() {
+                if ($("#user_form").valid()) {
+                    $("#user_form").submit();
+                }
+            });
+        });
+    </script> 
+</div>    

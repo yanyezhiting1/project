@@ -1,0 +1,63 @@
+{include file="public/header" /}
+
+
+
+
+
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>{$Think.lang.web_set}</h3>
+                <h5></h5>
+            </div>
+            {include file="public/admin_items" /}
+        </div>
+    </div>
+    
+    <form method="post" enctype="multipart/form-data" name="form1" action="">
+        <div class="ncap-form-default">
+            <dl>
+                <dt>邀请用户返利金额（元）</dt>
+                <dd>
+                    <input id="path1_money" name="path1_money" value="{$list_config.path1_money}" class="input-txt" type="text">
+                    <span class="err"></span>
+                    <p class="notic"></p>
+                </dd>
+            </dl>
+
+
+            <dl>
+                <dt></dt>
+                <dd><a href="JavaScript:void(0);" class="btn" onclick="document.form1.submit()">{$Think.lang.ds_confirm_submit}</a></dd>
+            </dl>
+        </div>
+    </form>
+    
+</div>
+
+
+
+
+
+<script>
+    $(function(){
+        $("#site_logo").change(function () {
+            $("#textfield1").val($("#site_logo").val());
+        });
+        $("#member_logo").change(function () {
+            $("#textfield2").val($("#member_logo").val());
+        });
+        $("#site_mobile_logo").change(function () {
+            $("#textfield4").val($("#site_mobile_logo").val());
+        });
+        $("#site_logowx").change(function () {
+            $("#textfield5").val($("#site_logowx").val());
+        });
+        $("#file_business_licence").change(function () {
+            $("#textfield6").val($("#file_business_licence").val());
+        });
+    })
+</script>
+
+

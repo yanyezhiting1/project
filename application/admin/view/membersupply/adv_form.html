@@ -1,0 +1,98 @@
+{include file="public/header" /}
+
+
+
+<div class="page">
+
+    <div class="fixed-empty"></div>
+    <form id="adv_form" enctype="multipart/form-data" method="post" name="advForm">
+        <table class="ds-default-table">
+            <tbody>
+            <tr class="noborder">
+                <input type="hidden" name="member_id" value="{$adv.member_id}">
+                <input type="hidden" name="id" value="{$adv.id}">
+                <td class="required w120"><label class="validation" for="adv_name">增加天数:</label></td>
+                <td class="vatop rowform"><input type="number" name="adv_enddate" id="adv_enddate" class="txt" value=""></td>
+                <td class="vatop tips"></td>
+            </tr>
+            <tr class="noborder">
+                <td class="required w120"><label class="validation" for="adv_name">增加分类:</label></td>
+                <td class="vatop rowform">
+                    {notempty name="parent_list"}
+                    {foreach name="parent_list" item="v" key="k" }
+                     {if condition="$v['deep'] eq 1"}
+                    <br/>
+                    {$v.gc_name}
+                    {foreach name="parent_list" item="vv" key="k2" }
+                    {if condition="$vv['deep'] eq 2 && $vv['gc_parent_id'] eq $v['gc_id']"}
+
+                    <br/>
+                    {$vv.gc_name}
+                    {foreach name="parent_list" item="vvv" key="k3" }
+                    {if condition="$vvv['deep'] eq 3 && $vvv['gc_parent_id'] eq $vv['gc_id']"}
+
+                     &nbsp;&nbsp;
+                    <input type="checkbox" name="class_id[]" value="{$vvv['gc_id']}"> {$vvv.gc_name}
+                    {/if}
+                    {/foreach}
+
+                    {/if}
+
+                    {/foreach}
+                    {/if}
+
+
+                    {/foreach}
+                    {/notempty}
+                </td>
+                <td class="vatop tips"><span style="color:#ff0000">注意：不要把顶级分类整体移动到其它分类下；</span> {$Think.lang.goods_class_add_sup_class_notice}</td>
+            </tr>
+
+            </tbody>
+            <tfoot>
+            <tr class="tfoot">
+                <td colspan="15"><a href="JavaScript:void(0);" class="btn" id="submitBtn" ><span>{$Think.lang.ds_submit}</span></a></td>
+            </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<link href="{$Think.PLUGINS_SITE_ROOT}/colorpicker/evol.colorpicker.css" rel="stylesheet" type="text/css">
+<script src="{$Think.PLUGINS_SITE_ROOT}/colorpicker/evol.colorpicker.min.js"></script>
+<!--<script type="text/javascript">-->
+<!--$(function(){-->
+<!--    $('#adv_startdate').datepicker({dateFormat: 'yy-mm-dd'});-->
+<!--    $('#adv_enddate').datepicker({dateFormat: 'yy-mm-dd'});-->
+<!--    $('#adv_bgcolor').colorpicker({showOn: 'both'});-->
+<!--        $("#file_adv_code").change(function () {-->
+<!--            $("#textfield1").val($("#file_adv_code").val());-->
+<!--        });-->
+<!--});-->
+<!--</script>-->
+
+<script>
+    //按钮先执行验证再提交表单
+    $(function(){
+        $("#submitBtn").click(function(){
+            if($("#adv_form").valid()){
+                $("#adv_form").submit();
+            }
+        });
+        $('#adv_form').validate({
+            errorPlacement: function(error, element){
+                error.appendTo(element.parent().parent().find('td:last'));
+            },
+            rules : {
+                adv_name : {
+                    required : true
+                }
+            },
+            messages : {
+                adv_name : {
+                    required : '{$Think.lang.ap_can_not_null}'
+                }
+
+            }
+        });
+    });
+</script>

@@ -1,0 +1,102 @@
+<link rel="stylesheet" href="../../../../public/static/admin/css/admin.css">{include file="public/header" /}
+
+
+
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>圈子管理</h3>
+            </div>
+            {include file="public/admin_items" /}
+        </div>
+    </div>
+    <form method="get" name="formSearch" id="formSearch">
+        <div class="ds-search-form">
+            <dl>
+                <dt>审核状态</dt>
+                <dd>
+                    <select name="state">
+                        <option value="">{$Think.lang.ds_please_choose}...</option>
+                        <option value="0">未审核</option>
+                        <option value="1">已审核</option>
+                        <option value="2">已拒绝</option>
+                    </select> 
+                </dd>
+            </dl>
+
+            <div class="btn_group">
+                <input type="submit" class="btn" value="{$Think.lang.ds_search}">
+                {if $filtered}
+                <a href="{:url('circle/index')}" class="btn btn-default" title="{$Think.lang.ds_cancel}">{$Think.lang.ds_cancel}</a>
+                {/if}
+            </div>
+        </div>
+    </form>
+
+    <div class="fixed-empty"></div>
+    <form method="post" >
+        <table class="ds-default-table">
+            <thead>
+                <tr class="thead">
+                    <th></th>
+                    <th class="w60">内容</th>
+                    <th class="w60">地区</th>
+                    <th class="w100">图片1</th>
+                    <th class="w100">图片2</th>
+                    <th class="w100">图片3</th>
+
+                    <th class="align-center" >{$Think.lang.ds_handle}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {notempty name="supply_info"}
+                {foreach name="supply_info" item="v"}
+                <tr class="hover">
+                    <td >{$v.id}</td>
+
+                    <td class="name">{$v.circle_content}</td>
+                    <td class="name">{$v.area_name}</td>
+
+                    {notempty name="$v.circle_image[0]"}
+                    <td><a data-lightbox="lightbox-image" data-title="" href="{$v.circle_image[0]}"><img src="{$v.circle_image[0]}" onload="javascript:ResizeImage(this,60,60);" /></a></td>
+                    {else/}
+                    <td></td>
+                    {/notempty}
+                    {notempty name="$v.circle_image[1]"}
+                    <td><a data-lightbox="lightbox-image" data-title="" href="{$v.circle_image[1]}"><img src="{$v.circle_image[1]}" onload="javascript:ResizeImage(this,60,60);" /></a></td>
+                    {else/}
+                    <td></td>
+                    {/notempty}
+                    {notempty name="$v.circle_image[2]"}
+                    <td><a data-lightbox="lightbox-image" data-title="" href="{$v.circle_image[2]}"><img src="{$v.circle_image[2]}" onload="javascript:ResizeImage(this,60,60);" /></a></td>
+                    {else/}
+                    <td></td>
+                    {/notempty}
+
+
+
+
+
+                    <td>
+                     {if condition="$v.state eq 0"}
+                     <a href="javascript:dsLayerConfirm('{:url('Circle/supply_check',['id'=>$v.id,'state'=>1])}','确认审核通过吗')" class="dsui-btn-edit"><i class="iconfont"></i>通过</a>
+                     <a href="javascript:dsLayerConfirm('{:url('Circle/supply_check',['id'=>$v.id,'state'=>2])}','确认拒绝该申请吗')" class="dsui-btn-del"><i class="iconfont"></i>拒绝</a>
+                      {/if}
+                    </td>
+                </tr>
+                {/foreach}
+                {else /}
+
+                <tr class="no_data">
+                    <td colspan="15">{$Think.lang.ds_no_record}</td>
+                </tr>
+                {/notempty}
+            </tbody>
+        </table>
+        {$show_page}
+    </form>
+</div>
+<script type="text/javascript" src="{$Think.ADMIN_SITE_ROOT}/js/jquery.edit.js" charset="utf-8"></script>
+<link rel="stylesheet" href="{$Think.PLUGINS_SITE_ROOT}/js/jquery.lightbox/css/lightbox.min.css">
+<script src="{$Think.PLUGINS_SITE_ROOT}/js/jquery.lightbox/js/lightbox.min.js"></script>

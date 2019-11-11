@@ -1,0 +1,71 @@
+{include file="public/header" /}
+
+
+
+
+
+<div class="page">
+    
+    
+    
+    
+    <table class="ds-default-table">
+      <thead>
+        <tr class="thead">
+          <th></th>
+          <th>{$Think.lang.ds_sort}</th>
+          <th>规格名称</th>
+          <th>商品原价</th>
+          <th>商品现价</th>
+          <th>商品库存</th>
+          <th>{$Think.lang.ds_handle}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {notempty name="list"}
+        {foreach name="list" item="v" key="k" }
+        <tr class="hover edit">
+         
+        <td></td>  
+        <td>{$v.id}</td>
+        <td>{$v.goods_standards}</td>
+         <td>{$v.goods_marketprice}</td>  
+        <td>{$v.goods_price}</td>  
+        <td>{$v.goods_storage}</td>  
+          <td class="w96">
+
+            <a href="{:url('Goods/goods_standards_edit',['id'=>$v.id])}" >编辑</a>
+            <a href="javascript:void(0)" onclick="submit_delete({$v.id})">{$Think.lang.ds_del}</a>
+
+          </td>
+        </tr>        
+        {/foreach}
+        {else /}
+        <tr class="no_data">
+          <td colspan="10">{$Think.lang.ds_no_record}</td>
+        </tr>
+        {/notempty}
+      </tbody>
+      {notempty name="class_list"}
+      <tfoot>
+        <tr class="tfoot">
+          <td><input type="checkbox" class="checkall" id="checkall_2"></td>
+          <td id="batchAction" colspan="15"><span class="all_checkbox">
+            <label for="checkall_2">{$Think.lang.ds_select_all}</label>
+            </span>&nbsp;&nbsp;<a href="JavaScript:void(0);" class="btn btn-small" onclick="submit_delete_batch()"><span>{$Think.lang.ds_del}</span></a>
+            </td>
+        </tr>
+      </tfoot>
+      {/notempty}
+    </table>
+</div>
+
+<script type="text/javascript" src="{$Think.ADMIN_SITE_ROOT}/js/jquery.edit.js" charset="utf-8"></script>
+<script src="{$Think.ADMIN_SITE_ROOT}/js/jquery.goods_class.js"></script>
+<script type="text/javascript">
+    function submit_delete(ids_str){
+    	
+        _uri = ADMINSITEURL+"/Goods/goods_standards_del.html?id=" + ids_str;
+        dsLayerConfirm(_uri,'{$Think.lang.ds_ensure_del}');
+    }
+</script>

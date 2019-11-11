@@ -1,0 +1,108 @@
+{include file="public/header" /}
+
+
+
+
+
+<div class="page">
+    <!--<div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>{$Think.lang.goods_class_index_class}</h3>
+            </div>
+            {include file="public/admin_items" /}
+        </div>
+    </div>-->
+
+    <form id="goods_class_form" enctype="multipart/form-data" method="post">
+    	<input type="hidden" name="commonid" value="{$commonid}">
+        <table class="ds-default-table">
+            <tbody>
+                <tr class="noborder">
+                    <td colspan="2" class="required"><label class="validation" for="gc_name">规格名称:</label></td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform"><input type="text" value="{$info.goods_standards}" name="goods_standards" id="goods_standards" maxlength="20" class="txt"></td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr class="noborder">
+                    <td colspan="2" class="required"><label class="validation" for="gc_name">商品原价:</label></td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform"><input type="text" value="{$info.goods_marketprice}" name="goods_marketprice" id="goods_marketprice" maxlength="20" class="txt"></td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr class="noborder">
+                    <td colspan="2" class="required"><label class="validation" for="gc_name">商品现价:</label></td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform"><input type="text" value="{$info.goods_price}" name="goods_price" id="goods_price" maxlength="20" class="txt"></td>
+                    <td class="vatop tips"></td>
+                </tr>
+                
+                <tr class="noborder">
+                    <td colspan="2" class="required"><label class="validation" for="gc_name">商品库存:</label></td>
+                </tr>
+                <tr class="noborder">
+                    <td class="vatop rowform"><input type="text" value="{$info.goods_storage}" name="goods_storage" id="goods_storage" maxlength="20" class="txt"></td>
+                    <td class="vatop tips"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"><a href="JavaScript:void(0);" class="btn" id="submitBtn"><span>{$Think.lang.ds_submit}</span></a></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<script type="text/javascript" src="{$Think.PLUGINS_SITE_ROOT}/mlselection.js" charset="utf-8"></script>
+<script type="text/javascript" src="{$Think.PLUGINS_SITE_ROOT}/jquery.mousewheel.js"></script> 
+<script>
+//按钮先执行验证再提交表单
+              $(function() {
+
+                  $('#type_div').perfectScrollbar();
+
+                  $("#submitBtn").click(function() {
+                      if ($("#goods_class_form").valid()) {
+                          $("#goods_class_form").submit();
+                      }
+                  });
+
+                  $("#pic").change(function() {
+                      $("#textfield1").val($(this).val());
+                  });
+                  $('input[type="radio"][name="t_id"]').click(function() {
+                      if ($(this).val() == '0') {
+                          $('#t_name').val('');
+                      } else {
+                          $('#t_name').val($(this).next('span').html());
+                      }
+                  });
+
+                  
+
+                  // 所属分类
+                  $(document).off('change',"#gc_parent_id").on("change","#gc_parent_id", function() {
+                      type_scroll($(this));
+                  });
+                  // 类型搜索
+                  $(document).off('change',"#gcategory > select").on("change","#gcategory > select", function() {
+                      type_scroll($(this));
+                  });
+              });
+              var typeScroll = 0;
+              function type_scroll(o) {
+                  var id = o.val();
+                  if (!$('#type_dt_' + id).is('dt')) {
+                      return false;
+                  }
+                  $('#type_div').scrollTop(-typeScroll);
+                  var sp_top = $('#type_dt_' + id).offset().top;
+                  var div_top = $('#type_div').offset().top;
+                  $('#type_div').scrollTop(sp_top - div_top);
+                  typeScroll = sp_top - div_top;
+              }
+              gcategoryInit('gcategory');
+</script> 

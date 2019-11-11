@@ -1,0 +1,57 @@
+{include file="public/header" /}
+
+
+
+<div class="page">
+
+    <div class="fixed-empty"></div>
+    <form id="link_form" enctype="multipart/form-data" method="post">
+        <table class="ds-default-table">
+            <tbody>
+                <tr class="noborder">
+                    <td class="required w120"><label class="validation" for="material_name">材质名称:</label></td>
+                    <td class="vatop rowform"><input type="text" name="material2_name" id="material_name" class="txt" value="{$material.material_name|default=''}">
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+                
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="15" ><a href="JavaScript:void(0);" class="btn" id="submitBtn"><span>{$Think.lang.ds_submit}</span></a></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+<script>
+//按钮先执行验证再提交表单
+    $(function () {
+        $("#submitBtn").click(function () {
+            if ($("#link_form").valid()) {
+                $("#link_form").submit();
+            }
+        });
+    });
+//
+$(document).ready(function () {
+
+    $('#link_form').validate({
+        errorPlacement: function (error, element) {
+            error.appendTo(element.parent().parent().find('td:last'));
+        },
+        rules: {
+            material_name: {
+                required: true
+            },
+
+        },
+        messages: {
+            material_name: {
+                required: '材质名称不能为空'
+            },
+
+        }
+    });
+});
+</script>

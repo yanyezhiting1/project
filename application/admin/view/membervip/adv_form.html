@@ -1,0 +1,76 @@
+{include file="public/header" /}
+
+
+
+<div class="page">
+
+  <div class="fixed-empty"></div>
+  <form id="adv_form" enctype="multipart/form-data" method="post" name="advForm">
+    <table class="ds-default-table">
+        {notempty name="$v['id']"}
+        <input type="hidden" name="id" value="{$adv.id}">
+        {/notempty}
+      <tbody>
+        <tr class="noborder">
+          <td class="required w120"><label class="validation" for="charge_time">充值时间（月）:</label></td>
+          <td class="vatop rowform"><input type="number" name="charge_time" id="charge_time" class="txt" value="{$adv.charge_time|default=''}"></td>
+          <td class="vatop tips"></td>
+        </tr>
+        <tr class="noborder">
+            <td class="required w120"><label class="validation" for="charge_money">充值金额:</label></td>
+            <td class="vatop rowform"><input type="text" name="charge_money" id="charge_money" class="txt" value="{$adv.charge_money|default=''}"></td>
+            <td class="vatop tips"></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr class="tfoot">
+            <td colspan="15"><a href="JavaScript:void(0);" class="btn" id="submitBtn" ><span>{$Think.lang.ds_submit}</span></a></td>
+        </tr>
+      </tfoot>
+    </table>
+  </form>
+</div>
+<link href="{$Think.PLUGINS_SITE_ROOT}/colorpicker/evol.colorpicker.css" rel="stylesheet" type="text/css">
+<script src="{$Think.PLUGINS_SITE_ROOT}/colorpicker/evol.colorpicker.min.js"></script>
+<script type="text/javascript">
+$(function(){
+    $('#adv_startdate').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#adv_enddate').datepicker({dateFormat: 'yy-mm-dd'});
+    $('#adv_bgcolor').colorpicker({showOn: 'both'});
+        $("#file_adv_code").change(function () {
+            $("#textfield1").val($("#file_adv_code").val());
+        });
+});
+</script>
+
+<script>
+    //按钮先执行验证再提交表单
+    $(function(){
+        $("#submitBtn").click(function(){
+        if($("#adv_form").valid()){
+            $("#adv_form").submit();
+        }
+       });
+        $('#adv_form').validate({
+            errorPlacement: function(error, element){
+                error.appendTo(element.parent().parent().find('td:last'));
+            },
+            rules : {
+                charge_time : {
+                    required : true
+                },
+                charge_money : {
+                    required : true
+                }
+            },
+            messages : {
+                charge_time : {
+                    required : '充值时长不能为空'
+                },
+                charge_money : {
+                    required : '充值金额不能为空'
+                }
+            }
+        });
+    });
+</script>

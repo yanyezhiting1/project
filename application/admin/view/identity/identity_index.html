@@ -1,0 +1,53 @@
+{include file="public/header" /}
+
+
+
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>物流分类管理</h3>
+            </div>
+            {include file="public/admin_items" /}
+        </div>
+    </div>
+
+
+    <div class="fixed-empty"></div>
+    <form method="post" >
+        <table class="ds-default-table">
+            <thead>
+                <tr class="thead">
+                    <th class="w24"></th>
+                    <th class="w300">分类名称</th>
+
+                    <th class="align-center">{$Think.lang.ds_handle}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {notempty name="identity_info"}
+                {foreach name="identity_info" item="v"}
+                <tr class="hover">
+                    <td class="w24">{$v.id}</td>
+                    <td class="name"><span class="editable"  ds_type="inline_edit" ajax_branch='identity_branch' fieldname="name" fieldid="{$v.id}" required="1"  title="{$Think.lang.ds_editable}">{$v.name}</span></td>
+
+
+                    <td>
+
+                     <a href="javascript:dsLayerConfirm('{:url('identity/identity_del',['identity_id'=>$v.id])}','{$Think.lang.ds_ensure_del}')" class="dsui-btn-del"><i class="iconfont"></i>{$Think.lang.ds_del}</a>
+                    </td>
+                </tr>
+                {/foreach}
+                {else /}
+                <tr class="no_data">
+                    <td colspan="15">{$Think.lang.ds_no_record}</td>
+                </tr>
+                {/notempty}
+            </tbody>
+        </table>
+        {$show_page}
+    </form>
+</div>
+<script type="text/javascript" src="{$Think.ADMIN_SITE_ROOT}/js/jquery.edit.js" charset="utf-8"></script>
+<link rel="stylesheet" href="{$Think.PLUGINS_SITE_ROOT}/js/jquery.lightbox/css/lightbox.min.css">
+<script src="{$Think.PLUGINS_SITE_ROOT}/js/jquery.lightbox/js/lightbox.min.js"></script>

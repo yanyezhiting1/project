@@ -1,0 +1,143 @@
+{include file="public/header" /}
+
+<div class="page">
+    <form id="user_form" enctype="multipart/form-data" method="post">
+        <input type="hidden" name="member_id" value="{$member_array.member_id}" />
+        <input type="hidden" name="old_member_avatar" value="{$member_array.member_avatar}" />
+        <input type="hidden" name="member_name" value="{$member_array.member_name}" />
+        <table class="ds-default-table">
+            <tbody>
+                <tr class="noborder">
+                    <td class="required w120"><label>{$Think.lang.ds_member}:</label></td>
+                    <td class="vatop rowform">{$member_array.member_name}</td>
+                    <td class="vatop tips"></td>
+                </tr>
+                <tr class="noborder">
+                    <td class="required"><label for="member_password">{$Think.lang.member_edit_password}:</label></td>
+                    <td class="vatop rowform"><input type="text" id="member_password" name="member_password" class="txt"></td>
+                    <td class="vatop tips">{$Think.lang.member_edit_password_keep}</td>
+                </tr>
+                <tr class="noborder">
+                    <td class="required"><label for="member_password">用户余额:</label></td>
+                    <td class="vatop rowform"><input type="text" id="available_predeposit" name="available_predeposit" class="txt"></td>
+
+                </tr>
+
+<!--                <tr class="noborder">-->
+<!--                    <td class="required"><label>{$Think.lang.member_index_inform}:</label></td>-->
+<!--                    <td class="vatop rowform onoff">-->
+<!--                        <label for="inform_allow1" class="cb-enable {if $member_array.inform_allow == '1'}selected{/if}" ><span>{$Think.lang.member_edit_allow}</span></label>-->
+<!--                        <label for="inform_allow2" class="cb-disable {if $member_array.inform_allow == '2'}selected{/if}" ><span>{$Think.lang.member_edit_deny}</span></label>-->
+<!--                        <input id="inform_allow1" name="inform_allow" {if $member_array.inform_allow == '1'}checked="checked"{/if}  value="1" type="radio">-->
+<!--                        <input id="inform_allow2" name="inform_allow" {if $member_array.inform_allow == '2'}checked="checked"{/if} value="2" type="radio">-->
+<!--                    </td>-->
+<!--                    <td class="vatop tips"></td>-->
+<!--                </tr>-->
+<!--                <tr class="noborder">-->
+<!--                    <td class="required"><label>{$Think.lang.member_edit_allowbuy}:</label></td>-->
+<!--                    <td class="vatop rowform onoff">-->
+<!--                        <label for="isbuy_1" class="cb-enable {if $member_array.is_buylimit == '1'}selected{/if}" ><span>{$Think.lang.member_edit_allow}</span></label>-->
+<!--                        <label for="isbuy_2" class="cb-disable {if $member_array.is_buylimit == '0'}selected{/if}" ><span>{$Think.lang.member_edit_deny}</span></label>-->
+<!--                        <input id="isbuy_1" name="isbuy" {if $member_array.is_buylimit == '1'}checked="checked"{/if}  value="1" type="radio">-->
+<!--                        <input id="isbuy_2" name="isbuy" {if $member_array.is_buylimit == '0'}checked="checked"{/if} value="0" type="radio">-->
+<!--                    </td>-->
+<!--                    <td class="vatop tips">{$Think.lang.member_edit_allowbuy_tip}</td>-->
+<!--                </tr>-->
+<!--                <tr class="noborder">-->
+<!--                    <td class="required"><label>{$Think.lang.member_edit_allowtalk}:</label></td>-->
+<!--                    <td class="vatop rowform onoff">-->
+<!--                        <label for="allowtalk_1" class="cb-enable {if $member_array.is_allowtalk == '1'}selected{/if}" ><span>{$Think.lang.member_edit_allow}</span></label>-->
+<!--                        <label for="allowtalk_2" class="cb-disable {if $member_array.is_allowtalk == '0'}selected{/if}" ><span>{$Think.lang.member_edit_deny}</span></label>-->
+<!--                        <input id="allowtalk_1" name="allowtalk" {if $member_array.is_allowtalk == '1'}checked="checked"{/if}  value="1" type="radio">-->
+<!--                               <input id="allowtalk_2" name="allowtalk" {if $member_array.is_allowtalk == '0'}checked="checked"{/if} value="0" type="radio">-->
+<!--                    </td>-->
+<!--                    <td class="vatop tips">{$Think.lang.member_edit_allowtalk_tip}</td>-->
+<!--                </tr>-->
+                <tr class="noborder">
+                    <td class="required"><label>{$Think.lang.member_edit_allowlogin}:</label></td>
+                    <td class="vatop rowform onoff">
+                        <label for="memberstate_1" class="cb-enable {if $member_array.member_state == '1'}selected{/if}" ><span>{$Think.lang.member_edit_allow}</span></label>
+                        <label for="memberstate_2" class="cb-disable {if $member_array.member_state == '0'}selected{/if}" ><span>{$Think.lang.member_edit_deny}</span></label>
+                        <input id="memberstate_1" name="memberstate" {if $member_array.member_state == '1'}checked="checked"{/if}  value="1" type="radio">
+                        <input id="memberstate_2" name="memberstate" {if $member_array.member_state == '0'}checked="checked"{/if}  value="0" type="radio">
+                    </td>
+                    <td class="vatop tips"></td>
+                </tr>
+
+<!--                <tr class="noborder">-->
+<!--                    <td class="required"><label>{$Think.lang.points_unit}:</label></td>-->
+<!--                    <td class="vatop rowform">{$Think.lang.points_unit}&nbsp;<strong class="red">{$member_array.member_points}</strong>&nbsp;{$Think.lang.points_unit}</td>-->
+<!--                    <td class="vatop tips"></td>-->
+<!--                </tr>-->
+<!--                <tr class="noborder">-->
+<!--                    <td class="required"><label>经验值:</label></td>-->
+<!--                    <td class="vatop rowform">经验值&nbsp;<strong class="red">{$member_array.member_exppoints}</strong>&nbsp;{$Think.lang.points_unit}</td>-->
+<!--                    <td class="vatop tips"></td>-->
+<!--                </tr>-->
+                <tr class="noborder">
+                    <td class="required"><label>{$Think.lang.member_index_available}用户余额:</label></td>
+                    <td class="vatop rowform">{$Think.lang.member_index_available}&nbsp;<strong class="red">{$member_array.available_predeposit}</strong>&nbsp;{$Think.lang.ds_yuan}</td>
+                    <td class="vatop tips"></td>
+                </tr>
+<!--                <tr class="noborder">-->
+<!--                    <td class="required"><label>{$Think.lang.member_index_frozen}{$Think.lang.member_index_pre}:</label></td>-->
+<!--                    <td class="vatop rowform">{$Think.lang.member_index_frozen}&nbsp;<strong class="red">{$member_array.freeze_predeposit}</strong>&nbsp;{$Think.lang.ds_yuan}</td>-->
+<!--                    <td class="vatop tips"></td>-->
+<!--                </tr>-->
+            </tbody>
+            <tfoot>
+                <tr class="tfoot">
+                    <td colspan="15"><a href="JavaScript:void(0);" class="btn" id="submitBtn"><span>{$Think.lang.ds_submit}</span></a></td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+
+    <script type="text/javascript" src="{$Think.PLUGINS_SITE_ROOT}/mlselection.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function() {
+            $("#region").ds_region();
+            $("#submitBtn").click(function() {
+                if ($("#user_form").valid()) {
+                    $("#user_form").submit();
+                }
+            });
+            $('#user_form').validate({
+                errorPlacement: function(error, element) {
+                    error.appendTo(element.parent().parent().find('td:last'));
+                },
+                rules: {
+                    member_password: {
+                        maxlength: 20,
+                        minlength: 6
+                    },
+                    member_email: {
+                        required: true,
+                        email: true,
+                        remote: {
+                            url: ADMINSITEURL+'/Member/ajax.html?branch=check_email',
+                            type: 'get',
+                            data: {
+                                user_name: function() {
+                                    return $('#member_email').val();
+                                },
+                                member_id : '{$member_array.member_id}'
+                            }
+                        }
+                    }
+                },
+                messages: {
+                    member_password: {
+                        maxlength: '{$Think.lang.member_edit_password_tip}',
+                        minlength: '{$Think.lang.member_edit_password_tip}'
+                    },
+                    member_email: {
+                        required: '{$Think.lang.member_edit_email_null}',
+                        email: '{$Think.lang.member_edit_valid_email}',
+                        remote: '{$Think.lang.member_edit_email_exists}'
+                    }
+                }
+            });
+        });
+    </script> 
+</div>    

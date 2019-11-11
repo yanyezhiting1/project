@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>中原再生</title>
+    <link rel="stylesheet" href="{$Think.ADMIN_SITE_ROOT}/css/utils/loading/loading.css">
+    <script src="{$Think.ADMIN_SITE_ROOT}/css/utils/loading/loading.js"></script>
+    <script src="{$Think.PLUGINS_SITE_ROOT}/jquery-2.1.4.min.js"></script>
+    <script src="{$Think.ADMIN_SITE_ROOT}/css/utils/layer/layer.js"></script>
+    <link rel="stylesheet" href="{$Think.ADMIN_SITE_ROOT}/css/src/css/css.css">
+</head>
+
+<body>
+
+<div class="wrap">
+    <!-- 表单 start -->
+    <div class="formWrap">
+        <h3>注册中原再生</h3>
+        <input type="hidden" name="userid" id="userid" value="<?php echo $_GET['memberid']?>">
+        <div>
+            <label>
+                <span>手机号</span>
+                <input type="tel" name="tel" id="tel" placeholder="请输入手机号">
+            </label>
+
+            <label>
+                <span>验证码</span>
+                <input type="text" name="code" id="code" placeholder="请输入验证码">
+                <button id="codeBtn" type="button">获取验证码</button>
+            </label>
+            <label>
+                <span>密码</span>
+                <input type="password" name="password" id="password" placeholder="请输入密码">
+            </label>
+            <label>
+                <span>邀请码</span>
+                <input type="text" name="Invitation" value="{$code}" id="Invitation" placeholder="请输入推荐码">
+            </label>
+        </div>
+    </div>
+    <!-- 表单 end -->
+    <!-- 注册按钮 start -->
+    <div class="registerWrap">
+        <button type="button" onclick="setData()">注册并下载</button>
+    </div>
+    <!-- 注册按钮 end -->
+</div>
+<script>
+    //简单封装 弹出窗口
+    function layers(t) {
+        layer.msg(t, {
+            time: 1000,
+            icon: 5
+        });
+    }
+
+    // //提交数据表单
+    function setData() {
+        //数据
+        var data2 = {
+            account: $("#tel").val(),
+            password: $("#password").val(),
+            code: $("#code").val(),
+            invent_code: $("#Invitation").val(),
+            userid:$("#userid").val(),
+
+        };
+        //验证手机
+        if (data2.account == "") {
+            layers('手机号不能为空哦');
+            return false
+        }
+        if (!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(data2.account))) {
+            layers('手机号码有误，请重填');
+            return false;
+        }
+        //验证密码
+        if (data2.password.length < 6) {
+            layers('请正确输入密码 不能少于6位');
+            return false
+        }
+        //验证码
+        if (data2.code == "") {
+            layers('请输入验证码');
+            return false
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "{:url('api/register')}",
+            data: data2,
+            dataType: "json",
+            success: function(data) {
+
+                var code = data.code;
+
+                if(code==200){
+                    alert('注册成功');
+                    window.location.href= 'http://www.baidu.com';
+                }else{
+                    alert(data.msg);
+                }
+            }
+        })
+    }
+
+
+    // 点击获取验证码操作
+    $('#codeBtn').click(function() {
+        var data = {
+            phone: $("#tel").val(),
+            type: 2,
+
+        };
+        $.ajax({
+            type: "POST",
+            url: "{:url('api/sendsms')}",
+            data: data,
+            dataType: "json",
+            success: function(data) {
+                var code = data.code;
+                if(code==200){
+                    alert('发送成功');
+                }
+
+            }
+        })
+        let count = 60;
+        const countDown = setInterval(() => {
+            if (count === 0) {
+
+                $('#codeBtn').text('获取验证码').removeAttr('disabled');
+                clearInterval(countDown);
+
+
+            } else {
+
+                $('#codeBtn').attr('disabled', true);
+                $('#codeBtn').text(count + '秒后可重新获取');
+
+            }
+            count--;
+        }, 1000);
+    });
+</script>
+</body>
+
+</html>

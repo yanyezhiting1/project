@@ -1,0 +1,71 @@
+{include file="public/header" /}
+
+
+
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>消息记录</h3>
+            </div>
+            {include file="public/admin_items" /}
+        </div>
+    </div>
+
+
+    <form method="get" name="formSearch" id="formSearch">
+        <div class="ds-search-form">
+            <dl>
+                <dd>
+                    日期
+                </dd>
+                <dd>
+                    <input type="text" value="{$date}" name="date" class="txt">
+                </dd>
+            </dl>
+            <div class="btn_group">
+                <input type="submit" class="btn" value="搜索">
+                <a href="{:url('Rongyun/index')}" class="btn btn-default" title="{$Think.lang.ds_cancel}">{$Think.lang.ds_cancel}</a>
+                （格式为10位数字，不足的补0，最后两位表示查询的某一个小时的时间，示例：2019010113 表示查询2019年1月1日 13-14点的查询记录，只能查询最近三天的记录）
+            </div>
+        </div>
+    </form>
+
+
+    <div class="fixed-empty"></div>
+    <form method="post" >
+        <table class="ds-default-table">
+            <thead>
+                <tr class="thead">
+                    <th class="w24"></th>
+                    <th style="width: 60%">消息</th>
+                    <th class="w300">发送时间</th>
+                    <th class="w300">发送人</th>
+                    <th class="w300">接收人</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {notempty name="material2_info"}
+                {foreach name="material2_info" item="v"}
+                <tr class="hover">
+                    <td class="w24"></td>
+                    <td class="name">{$v.content}</td>
+                    <td class="name">{$v.sendtime}</td>
+                    <td class="name">{$v.senduser}</td>
+                    <td class="name">{$v.acceptuser}</td>
+                </tr>
+                {/foreach}
+                {else /}
+                <tr class="no_data">
+                    <td colspan="15">{$Think.lang.ds_no_record}</td>
+                </tr>
+                {/notempty}
+            </tbody>
+        </table>
+        {$show_page}
+    </form>
+</div>
+<script type="text/javascript" src="{$Think.ADMIN_SITE_ROOT}/js/jquery.edit.js" charset="utf-8"></script>
+<link rel="stylesheet" href="{$Think.PLUGINS_SITE_ROOT}/js/jquery.lightbox/css/lightbox.min.css">
+<script src="{$Think.PLUGINS_SITE_ROOT}/js/jquery.lightbox/js/lightbox.min.js"></script>
